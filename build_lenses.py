@@ -45,13 +45,11 @@ pruned_tree = np.copy(tree)
 [num_of_rows, num_of_nodes] = pruned_tree.shape
 for i in range(num_of_rows):
     pruned_tree[i][4] = 0
-pruned_tree[num_of_rows-1][4] = 3   # simple changing node 4 to the leaf of class 3
+pruned_tree[num_of_rows-1][4] = 2   # simple changing node 4 to the leaf of class 3
 num_of_training_errors = dt.calc_error(train_vectors,train_classes,pruned_tree)
 num_of_test_errors = dt.calc_error(test_vectors,test_classes,pruned_tree)
 
-# pruned_tree = pru.post_prune(22, 29, tree)
-# pruned_tree = pru.prune(tree)
-# pruned_tree = pru.prune1(tree,train_vectors, train_classes)
+
 
 print("after pruning:\ntraining error = " + str(num_of_training_errors/num_of_train_examples) + " test error = " + 
 str(num_of_test_errors/num_of_test_examples))
