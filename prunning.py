@@ -200,3 +200,17 @@ def prune1(myTree,dataSet,labels):
 #         if isTwig(parent):
 #             heappush(twigHeap,(parent.@nodeInformationGain, parent))
 #     return
+
+from sklearn.tree._tree import TREE_LEAF
+
+def prune_index(inner_tree, num_of_rows, index, threshold):
+    if inner_tree[num_of_rows][4] < threshold:
+        # turn node into a leaf by "unlinking" its children
+        inner_tree[num_of_rows - 1][4] = 3
+        inner_tree[num_of_rows - 1][4] = 3
+    # if there are shildren, visit them as well
+    if inner_tree[index][4] != 3:
+        prune_index(inner_tree, num_of_rows-1, inner_tree[num_of_rows ][4], threshold)
+        prune_index(inner_tree, num_of_rows-1, inner_tree[num_of_rows ][4], threshold)
+
+
