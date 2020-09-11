@@ -43,10 +43,15 @@ str(num_of_test_errors/num_of_test_examples))
 
 pruned_tree = np.copy(tree)
 [num_of_rows, num_of_nodes] = pruned_tree.shape
-# for i in range(num_of_rows):
-#     pruned_tree[i][4] = 0
-# pruned_tree[num_of_rows-1][4] = 0 # simple changing node 4 to the leaf of class 3
-pru.prune_index(pruned_tree, num_of_rows, 0, 2)
+for i in range(num_of_rows):
+    pruned_tree[i][4] = 0
+pruned_tree[num_of_rows-1][4] = 1 # simple changing node 4 to the leaf of class 3
+
+for j in range(num_of_nodes):
+    if (pruned_tree[1][j] + pruned_tree[2][j] + pruned_tree[3][j]) == 0 & pruned_tree[num_of_rows-1][4] == 4:
+        pruned_tree[num_of_rows-1][j] = 1
+
+# pru.prune_index(pruned_tree, num_of_rows, 0, 2)
 num_of_training_errors = dt.calc_error(train_vectors,train_classes,pruned_tree)
 num_of_test_errors = dt.calc_error(test_vectors,test_classes,pruned_tree)
 
